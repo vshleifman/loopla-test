@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { useMutation } from "@tanstack/react-query"
 import { LooplaEvent } from "../api/events/mockData"
 import { createEvent } from "../helpers/hooks/api"
+import { nanoid } from "nanoid";
 
 const emojiAtEndRegex = /\p{Emoji}+$/u;
 const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
@@ -44,6 +45,7 @@ const FormSchema = z.object({
     mutationFn: async (
       event: LooplaEvent) => await createEvent(event),
       onSuccess: (data) => {
+        alert("Event created successfully!");
         router.push("/");
       },
   });  
@@ -59,7 +61,7 @@ const FormSchema = z.object({
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    createEventMutation.mutate(data)
+    createEventMutation.mutate({id: nanoid(), ...data})
   }
 
   return (

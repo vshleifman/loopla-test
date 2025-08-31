@@ -14,21 +14,20 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Home() {
 
   const [searchWord, setSearchWord] = useState("")
+  const router = useRouter();
 
   const {data: events} = useQuery({
     queryKey: ["events"],
     queryFn: getTickets
   });
 
-
-
-  console.log({events})
   return (
     <div className="mt-4 flex flex-col items-center gap-6">
       <Input className="w-1/2" type="text" placeholder="Search" value={searchWord} onChange={(e) => setSearchWord(e.target.value)} />
@@ -37,7 +36,11 @@ export default function Home() {
           event.title.toLowerCase().includes(searchWord.toLowerCase())
         )
         .map((event) => (
-        <Card className="w-1/2" key={event.title}>
+          <button key={event.title} className="w-1/2" onClick={() => {
+            router.push(`/event/${event.id}`);
+          }}>
+
+        <Card className="items-start text-justify" >
           <CardHeader>
           <CardTitle>{event.title}</CardTitle>
           <CardDescription>
@@ -46,6 +49,7 @@ export default function Home() {
           </CardDescription>
           </CardHeader>
         </Card>
+          </button>
       ))}
       <Button>
         <Link href="/create">Create Event</Link>
