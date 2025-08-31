@@ -22,7 +22,7 @@ import { createEvent } from "../helpers/hooks/api"
 import { nanoid } from "nanoid";
 
 const emojiAtEndRegex = /\p{Emoji}+$/u;
-const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
 
 const FormSchema = z.object({
   title: z.string().regex(
@@ -31,7 +31,7 @@ const FormSchema = z.object({
   ),
   description: z.string().optional(),
   date: z.string().regex(dateRegex,
-    "Must be a valid date in DD-MM-YYYY format"
+    "Must be a valid date in DD/MM/YYYY format"
   ),
   location: z.string().refine(
     (val) => val === val.toUpperCase(),
