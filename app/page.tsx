@@ -1,7 +1,6 @@
 'use client';
-import { LooplaEvent } from "./api/events/mockData";
-import {useMutation, useQuery} from "@tanstack/react-query";
-import { createEvent, getTickets } from "./helpers/hooks/api";
+import { useQuery} from "@tanstack/react-query";
+import { getTickets } from "./helpers/hooks/api";
 
 import {
   Card,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button"
 
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
+import Link from "next/link";
 
 
 
@@ -26,10 +26,7 @@ export default function Home() {
     queryFn: getTickets
   });
 
-  const createEventMutation = useMutation({
-    mutationFn: async (
-      event: LooplaEvent) => await createEvent(event)
-  });  
+
 
   console.log({events})
   return (
@@ -50,7 +47,9 @@ export default function Home() {
           </CardHeader>
         </Card>
       ))}
-      <Button onClick={() => createEventMutation.mutate({date: "d", location: "D", title: "dwd"})}>createEvent</Button>
+      <Button>
+        <Link href="/create">Create Event</Link>
+        </Button>
     </div>
   );
 }

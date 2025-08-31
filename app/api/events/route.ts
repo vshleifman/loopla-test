@@ -11,5 +11,5 @@ export const POST = async (request: NextRequest) => {
   const {title, description, date, location} = await request.json();
     console.log({title, description, date, location})
  
-  return NextResponse.json("success");
+  return NextResponse.json({message: "success"}, {status: 201});
 };
