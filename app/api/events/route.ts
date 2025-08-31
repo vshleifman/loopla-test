@@ -2,7 +2,9 @@ import {NextRequest, NextResponse} from "next/server";
 import {events} from "./mockData";
 
 export const GET = async () => {
-  return NextResponse.json(events);
+    const sortedEvents = events.toSorted((a, b) =>
+        a.title.length - b.title.length)
+  return NextResponse.json(sortedEvents);
 };
 
 export const POST = async (request: NextRequest) => {
