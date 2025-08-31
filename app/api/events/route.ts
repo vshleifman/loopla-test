@@ -12,8 +12,8 @@ export const GET = async () => {
 };
 
 export const POST = async (request: NextRequest) => {
-  const {title, description, date, location} = await request.json();
-    console.log({title, description, date, location})
+  const event = await request.json();
+    events.push(event)
  
   return NextResponse.json({message: "success"}, {status: 201});
 };
